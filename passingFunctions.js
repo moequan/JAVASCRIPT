@@ -30,5 +30,13 @@ function calculateAge(ageParam)
 {
     return 2019-ageParam;
 }
+function isFullAge(ageParam)
+{
+    return ageParam >=18
+}
 console.log("Age...");
 detailsCalculate(name,1993,calculateAge)
+console.log("Full Age...")
+detailsCalculate(name,1993,isFullAge)
+
+
