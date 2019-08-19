@@ -17,7 +17,7 @@
 // var vowels = [`a`, `e`, `i`, `o`, `u`];
 
 // function moveFirst(str) {
-    
+
 
 
 //     str = str.toLowerCase().split(``)
@@ -38,22 +38,24 @@
 // moveFirst("Cats are great pets")
 
 
-function pigLatin(str){
-    let arr= str.toLowerCase().split(`.`).join(``).split(` `)
+function pigLatin(str) {
+    let arr = str.toLowerCase().split(`.`).join(``).split(` `)
 
-    for (let i = 0; i< arr.length; i++) {
-     let word = arr[i];
-     let letter = word[0]
-    
-     if ( letter == `a` || letter ==`e`|| letter ==`i` || letter ==`o` || letter ==`u`){
+    for (let i = 0; i < arr.length; i++) {
+        let word = arr[i];
+        let letter = word[0]
+
+        if (letter == `a` || letter == `e` || letter == `i` || letter == `o` || letter == `u`) {
             arr[i] = word + `way`;
 
-     }else {
-        
-         arr[i] =  word.substring(1) + letter +`ay`
-     }   
+        } else {
+
+            arr[i] = word.substring(1) + letter + `ay`
+        }
     }
     arr[0] = arr[0][0].toUpperCase() + arr[0].slice(1)
     console.log(arr.join(` `))
 }
 pigLatin("Tom got a small piece of pie.")
+pigLatin("Cats are great pets.")
+pigLatin("He told us a very exciting tale.")
