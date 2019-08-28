@@ -210,6 +210,120 @@ var students = [`krunal`, `ankit`, `appdividend`, `nehal`, `dhaval`];
 
 function checkLetters(name) {
     return name.includes(`al`)
-}
+};
 console.log(students.filter(checkLetters))
 
+//RECAP
+
+//ForEach
+
+//1
+var names = [`Steve`, `John`, `Stella`, `Matilda`, `John`];
+var nums = [5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 8];
+
+names.forEach(function (element) {
+
+    console.log(element)
+});
+
+//2
+
+function printOutElements(element) {
+
+    console.log(element)
+}
+names.forEach(printOutElements);
+
+//Reduce 
+
+nums.reduce(addEverything)
+
+function addEverything(acc, val) {
+    console.log(acc + val)
+    return acc + val;
+}
+
+
+//Map
+
+const doubleNums = nums.map((el) => el * 2);
+console.log(doubleNums)
+
+
+
+
+const doubleNames = names.map(theNames)
+
+function theNames(el) {
+    return el + el
+};
+console.log(doubleNames)
+
+//Pig Latin with map
+
+const pigLatin = names.map(addYay)
+
+function addYay(el) {
+    let firstLetter = el.slice(0, 1);
+    let rest = el.slice(1, el.length);
+    return rest + firstLetter + `YAY`
+}
+console.log(pigLatin)
+
+//Filter
+
+const capitals = names.filter(findTheS)
+
+function findTheS(el) {
+    if (el[0] == `S`)
+        return el
+};
+console.log(capitals);
+
+const bigger = nums.filter(biggerThanFour)
+
+function biggerThanFour(el) {
+    if (el > 4)
+        return el
+}
+console.log(bigger)
+
+//Sort
+
+const sortNums = [4, 2, 1, 10]
+
+sortNums.sort(function (a, b) {
+    return a - b
+})
+console.log(sortNums)
+
+const sortNames = [`Zeta`, `Anna`, `Biggi`, `Rich`, `John`];
+
+sortNames.sort()
+
+console.log(sortNames)
+
+
+
+const sortObj = [{
+        name: `smth`,
+        age: 20
+    },
+    {
+        name: `smth`,
+        age: 8
+    },
+    {
+        name: `smth`,
+        age: 10
+    },
+    {
+        name: `I am cool`,
+        age: 108
+    }
+];
+
+sortObj.sort(function(a,b){
+    return a.age - b.age 
+});
+console.log(sortObj)
