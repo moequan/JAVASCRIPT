@@ -111,26 +111,92 @@
 // The final digit must be even
 // The sum of all the digits must be greater than 16
 
+
+//
+
+// class ValidateCreditCard {
+//     constructor(num) {
+//         this.num = num;
+//     }
+//     checkTheNumber(check) {
+//         var num = parseFloat(check)
+//         var sum = 0;
+//         var obj={};
+//         for (var i = 0; i < check.length; i++) {
+//             obj[check[i]] = true;
+//             sum += Number.parseFloat(check[i])
+//             console.log(sum)
+//             if (check.length == 16 && !isNaN(num) && check[check.length - 1] % 2 == 0 && check.indexOf(check[i]) !== 0 || check.indexOf(check[0]) == 1&&  sum > 16)
+//                 return true;
+
+//         }
+//         return false;
+//     }
+// };
+
+// const validCard = new ValidateCreditCard()
+
+// console.log(validCard.checkTheNumber('9999777788880000'));
+// console.log(validCard.checkTheNumber('6666666666661666'));
+// console.log(validCard.checkTheNumber('a92332119c011112'));
+// console.log(validCard.checkTheNumber('4444444444444444'));
+// console.log(validCard.checkTheNumber('1211111111111112'));
+
+//OTHER SOLUTION 
+
 class ValidateCreditCard {
-    constructor(num) {
-        this.num = num;
-    }
-    checkTheNumber(check) {
-        var num = parseFloat(check)
-        
-        for (var i = 0; i < check.length; i++) {
-            if (check.length == 16 && !isNaN(num) && check[check.length - 1] % 2 == 0 && check.indexOf(check[i]) !== check.lastIndexOf(check[i]))
-                return true;
-            else return false;
+    validate(creditCardNum) {
+        console.log('validate...');
+        console.log(creditCardNum);
+        if (creditCardNum.length !== 16)
+            return false;
+        //All of the digits must be numbers
+        for (var i = 0; i < creditCardNum.length; i++) {
+            var currentNumber = creditCardNum[i];
+            currentNumber = Number.parseInt(currentNumber); //Number: von JS definiert;
+            if (!Number.isInteger(currentNumber))
+                return false;
         }
+        //The credit card number must be composed of at least two different digits (i.e. all of the digits cannot be the same)
+        var obj = {}
+        for (var i = 0; i < creditCardNum.length; i++) {
+            obj[creditCardNum[i]] = true;
+            /*
+            obj = {
+                a : true,
+                9: true,
+                ...
+                so on
+            }
+            */
+        }
+        // console.log(obj);
+        // console.log(Object.keys(obj));
+        if (Object.keys(obj).length < 2) {
+            console.log('this is not match my condition of least two different digit');
+            return false;
+        }
+        //The final digit must be even
+        // console.log(creditCardNum.length);
+        // console.log(creditCardNum[creditCardNum.length-1]);
+        if (creditCardNum[creditCardNum.length - 1] % 2 !== 0)
+        return false;
+       
+        //The sum of all the digits must be greater than 16
+        var sum = 0;
+        for (i = 0; i < creditCardNum.length; i++) {
+            sum += Number.parseInt(creditCardNum[i]);
+        }
+        if (sum <= 16)            //nach dem loop, weil erste der loop beendet sein muß, dann erst kann man rechnen
+        return false;
         return true;
     }
-};
-
-const validCard = new ValidateCreditCard()
-console.log(validCard.checkTheNumber('9999777788880000'));
-console.log(validCard.checkTheNumber('6666666666661666')); 
-console.log(validCard.checkTheNumber('4444444444444444'));
-console.log(validCard.checkTheNumber('a92332119c011112'));
-console.log(validCard.checkTheNumber('1211111111111112'));
-
+ }
+ var ccObj = new ValidateCreditCard();
+ // ccObj.validate();                   //prüfen, ob es funktioniert
+ // ccObj.validate('a92332119c011112');
+ console.log(ccObj.validate('9999777788880000'));
+ console.log(ccObj.validate('6666666666661666'));
+ console.log(ccObj.validate('a92332119c011112'));
+ console.log(ccObj.validate('4444444444444444'));
+ console.log(ccObj.validate('1211111111111112'));
