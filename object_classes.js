@@ -142,61 +142,125 @@
 // console.log(validCard.checkTheNumber('4444444444444444'));
 // console.log(validCard.checkTheNumber('1211111111111112'));
 
+
+
+
+
 //OTHER SOLUTION 
 
-class ValidateCreditCard {
-    validate(creditCardNum) {
-        console.log('validate...');
-        console.log(creditCardNum);
-        if (creditCardNum.length !== 16)
-            return false;
-        //All of the digits must be numbers
-        for (var i = 0; i < creditCardNum.length; i++) {
-            var currentNumber = creditCardNum[i];
-            currentNumber = Number.parseInt(currentNumber); //Number: von JS definiert;
-            if (!Number.isInteger(currentNumber))
-                return false;
-        }
-        //The credit card number must be composed of at least two different digits (i.e. all of the digits cannot be the same)
-        var obj = {}
-        for (var i = 0; i < creditCardNum.length; i++) {
-            obj[creditCardNum[i]] = true;
-            /*
-            obj = {
-                a : true,
-                9: true,
-                ...
-                so on
-            }
-            */
-        }
-        // console.log(obj);
-        // console.log(Object.keys(obj));
-        if (Object.keys(obj).length < 2) {
-            console.log('this is not match my condition of least two different digit');
-            return false;
-        }
-        //The final digit must be even
-        // console.log(creditCardNum.length);
-        // console.log(creditCardNum[creditCardNum.length-1]);
-        if (creditCardNum[creditCardNum.length - 1] % 2 !== 0)
-        return false;
-       
-        //The sum of all the digits must be greater than 16
-        var sum = 0;
-        for (i = 0; i < creditCardNum.length; i++) {
-            sum += Number.parseInt(creditCardNum[i]);
-        }
-        if (sum <= 16)            //nach dem loop, weil erste der loop beendet sein muß, dann erst kann man rechnen
-        return false;
-        return true;
+// class ValidateCreditCard {
+//     validate(creditCardNum) {
+//         console.log('validate...');
+//         console.log(creditCardNum);
+//         if (creditCardNum.length !== 16)
+//             return false;
+//         //All of the digits must be numbers
+//         for (var i = 0; i < creditCardNum.length; i++) {
+//             var currentNumber = creditCardNum[i];
+//             currentNumber = Number.parseInt(currentNumber); //Number: von JS definiert;
+//             if (!Number.isInteger(currentNumber))
+//                 return false;
+//         }
+//         //The credit card number must be composed of at least two different digits (i.e. all of the digits cannot be the same)
+//         var obj = {}
+//         for (var i = 0; i < creditCardNum.length; i++) {
+//             obj[creditCardNum[i]] = true;
+//             /*
+//             obj = {
+//                 a : true,
+//                 9: true,
+//                 ...
+//                 so on
+//             }
+//             */
+//         }
+//         // console.log(obj);
+//         // console.log(Object.keys(obj));
+//         if (Object.keys(obj).length < 2) {
+//             console.log('this is not match my condition of least two different digit');
+//             return false;
+//         }
+//         //The final digit must be even
+//         // console.log(creditCardNum.length);
+//         // console.log(creditCardNum[creditCardNum.length-1]);
+//         if (creditCardNum[creditCardNum.length - 1] % 2 !== 0)
+//             return false;
+
+//         //The sum of all the digits must be greater than 16
+//         var sum = 0;
+//         for (i = 0; i < creditCardNum.length; i++) {
+//             sum += Number.parseInt(creditCardNum[i]);
+//         }
+//         if (sum <= 16) //nach dem loop, weil erste der loop beendet sein muß, dann erst kann man rechnen
+//             return false;
+//         return true;
+//     }
+// }
+// var ccObj = new ValidateCreditCard();
+// // ccObj.validate();                   //prüfen, ob es funktioniert
+// // ccObj.validate('a92332119c011112');
+// console.log(ccObj.validate('9999777788880000'));
+// console.log(ccObj.validate('6666666666661666'));
+// console.log(ccObj.validate('a92332119c011112'));
+// console.log(ccObj.validate('4444444444444444'));
+// console.log(ccObj.validate('1211111111111112'));
+
+
+// Encapsulation
+// One of the core concepts of OOP is encapsulation.
+//An important part of encapsulation is that data (object properties) should not be directly accessed or modified from outside the object.
+//To access or modify a property we would use a getter (access) or a setter (modify), which are specific methods we define in our class.
+//Currently there is no native support for private properties in JavaScript (it is possible to mimic private properties but we’re not going to go into that). So all the properties we’ve declared can be directly accessed from outside the object.
+
+class User {
+    constructor(name,age,email){
+        this.fullName=name;
+        this.age=age;
+        this.email=email;
     }
- }
- var ccObj = new ValidateCreditCard();
- // ccObj.validate();                   //prüfen, ob es funktioniert
- // ccObj.validate('a92332119c011112');
- console.log(ccObj.validate('9999777788880000'));
- console.log(ccObj.validate('6666666666661666'));
- console.log(ccObj.validate('a92332119c011112'));
- console.log(ccObj.validate('4444444444444444'));
- console.log(ccObj.validate('1211111111111112'));
+    get name (){
+        console.log(`get name ...`);
+        return this.fullName;
+    }
+    set name (newName){
+
+        console.log(`set name ...`)
+        this.fullName=newName;
+    }
+};
+
+const objUser = new User(`John`,34,`test@gmail.com`);
+console.log(objUser.name); //output John 
+objUser.name="test"; //set name method
+console.log(objUser.name) //called get name method 
+
+
+
+
+//------------------- Inheritance ------------------------------
+//Inheritance: Classes can also inherit from other classes. The class being inherited from is called the parent, and the class inheriting from the parentis called the child. In our example, another class, let’s say Administrator, can inherit the properties and methods of the User class:
+//To create a class inheritance, use the extends keyword.
+//User class= Parent  and Administrator class = child
+//There are a few things to keep in mind when using super():
+// You can only use super() in a derived class. If you try to use it in a non-derived class (a class that doesn’t use extends) or a function, it will throw an error.
+// You must call super() before accessing this in the constructor. Since super() is responsible for initializing this, attempting to access this before calling super() results in an error.
+// The only way to avoid calling super() is to return an object from the class constructor.
+
+class Administrator extends User {
+    constructor(name,age,email,role){
+        super(name,age,email);
+        this.role=role;
+    }
+    get rolePermission(){
+        console.log(`get role...`);
+        return this.role;
+    }
+    set rolePermission(newRole){
+        console.log(`set role ....`);
+        this.role=newRole;
+    }
+}
+
+const objAdmin = new Administrator(`Sarah`,25,`sarah@gmail.com`,`Admin`)
+console.log(objAdmin.name);
+console.log(objAdmin.rolePermission);
